@@ -24,7 +24,7 @@ Clone the repo:
 $ git clone https://github.com/sharat29ag/CDAL
 $ cd CDAL
 ```
-### Training
+### Frame Selection
 By default, logs are stored in ```<root_dir>/log``` with this structure:
 ```bash
 <root_dir>/experiments/logs
@@ -39,7 +39,7 @@ Change the path to raw features in the preprocess.py
 
 Creates a folder <root_dir>/features2 with weighted features.
 
-For CDAL selection:
+For CDAL-RL selection:
 ```bash
 python main.py --number_of_picks <number of frames to select> --path_to_features <path to weighted features> --classes <number of classes in dataset> --gpu 1 --save-dir log/summe-split0 --start_idx 0
 ```
