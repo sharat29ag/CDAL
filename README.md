@@ -30,6 +30,8 @@ Fo CDAL selection:
 ```bash
 python main.py --number_of_picks <number of frames to select> --path_to_features <path to preprocessed features> --classes <number of classes in dataset> --gpu 1 --save-dir log/summe-split0 --start_idx 0
 ```
+List of selected samples will be stored in <root_dir>/selection/
+
 ## Baseline Networks
 - [Semantic Segmentation](https://github.com/fyu/drn)
 - [Object Detection](https://github.com/amdegroot/ssd.pytorch)
