@@ -19,7 +19,7 @@ def KL_object(a,b):
 	kl= -0.5*(torch.sum(kl1)) - 0.5*(torch.sum(kl2))
 	return abs(kl)
 	
-def KL_segment(ac,bc,nc):
+def KL_segment(ac,bc,nc):## nc = number of classes
 	kl_classes=[]
 	reward_kl=0.0
 	for i in range(nc):
@@ -37,17 +37,17 @@ def KL_segment(ac,bc,nc):
 	reward_kl = reward_kl.float()
 	return reward_kl
 
-def KLD(seq,pick_idxs,nc):
+def CD(seq,pick_idxs,nc):
 	reward_kl=[]
 	for k in pick_idxs:
 		for l in pick_idxs:
-			reward_kl.append(KL_segment(seq[k,:],seq[l,:],nc))
+			reward_kl.append(KL_object(seq[k,:],seq[l,:])) # change function according to the task.
 	reward_kl=torch.stack(reward_kl)
 	reward_kl=torch.mean(reward_kl)
 	return reward_kl
 
 
-def rep(_seq,pick_idxs):
+def V_rep(_seq,pick_idxs):
 	n=_seq.shape[0]
 	dist_mat = torch.pow(_seq, 2).sum(dim=1, keepdim=True).expand(n, n)
 	dist_mat = dist_mat + dist_mat.t()
@@ -68,9 +68,7 @@ def compute_reward(seq, actions,probs,nc,picks,use_gpu=False):
 	_seq = _seq.squeeze()
 	n = _seq.size(0) 
 	
-	reward_kl=KLD(_seq,top_pick_idxs.squeeze(),nc)
-	# rep_reward=rep(_seq,top_pick_idxs.squeeze())
-	# reward=rep_reward*0.5 + reward_kl*0.5
-	reward = reward_kl
-	# reward = rep_reward
+	reward_kl=CD(_seq,top_pick_idxs.squeeze(),nc)
+	rep_reward=V_rep(_seq,top_pick_idxs.squeeze())
+	reward=rep_reward*0.5 + reward_kl*1.5
 	return reward,top_pick_idxs

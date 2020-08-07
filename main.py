@@ -19,7 +19,6 @@ from torch.distributions import Bernoulli
 from utils import Logger, read_json, write_json, save_checkpoint
 from models import *
 from rewards import compute_reward
-import vsum_tools
 
 parser = argparse.ArgumentParser("Pytorch code for unsupervised video summarization with REINFORCE")
 
@@ -141,7 +140,6 @@ def main():
 
         optimizer.zero_grad()
         cost.backward()
-        # torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
         optimizer.step()
         baseline = 0.9 * baseline + 0.1 * np.mean(epis_rewards) # update baseline reward via moving average
         print("epoch {}/{}\t reward {}\t".format(epoch+1, args.max_epoch, np.mean(epis_rewards)))
@@ -161,53 +159,6 @@ def main():
     print("Model saved to {}".format(model_save_path))
 
 
-def evaluate(model, dataset, test_keys, use_gpu):
-    print("==> Test")
-    with torch.no_grad():
-        model.eval()
-        fms = []
-        eval_metric = 'avg' if args.metric == 'tvsum' else 'max'
-
-        if args.verbose: table = [["No.", "Video", "F-score"]]
-
-        if args.save_results:
-            h5_res = h5py.File(osp.join(args.save_dir, 'result.h5'), 'w')
-
-        for key_idx, key in enumerate(test_keys):
-            seq = dataset[key]['features'][...]
-            seq = torch.from_numpy(seq).unsqueeze(0)
-            if use_gpu: seq = seq.cuda()
-            probs = model(seq)
-            probs = probs.data.cpu().squeeze().numpy()
-
-            cps = dataset[key]['change_points'][...]
-            num_frames = dataset[key]['n_frames'][()]
-            nfps = dataset[key]['n_frame_per_seg'][...].tolist()
-            positions = dataset[key]['picks'][...]
-            user_summary = dataset[key]['user_summary'][...]
-
-            machine_summary = vsum_tools.generate_summary(probs, cps, num_frames, nfps, positions)
-            fm, _, _ = vsum_tools.evaluate_summary(machine_summary, user_summary, eval_metric)
-            fms.append(fm)
-
-            if args.verbose:
-                table.append([key_idx+1, key, "{:.1%}".format(fm)])
-
-            if args.save_results:
-                h5_res.create_dataset(key + '/score', data=probs)
-                h5_res.create_dataset(key + '/machine_summary', data=machine_summary)
-                h5_res.create_dataset(key + '/gtscore', data=dataset[key]['gtscore'][...])
-                h5_res.create_dataset(key + '/fm', data=fm)
-
-    if args.verbose:
-        print(tabulate(table))
-
-    if args.save_results: h5_res.close()
-
-    mean_fm = np.mean(fms)
-    print("Average F-score {:.1%}".format(mean_fm))
-
-    return mean_fm
 
 if __name__ == '__main__':
     main()
