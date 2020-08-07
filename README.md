@@ -33,6 +33,7 @@ For weighted features:
 python preprocess.py
 ```
 Change the path to raw features in the preprocess.py
+
 Creates a folder <root_dir>/features2 with weighted features.
 
 For CDAL selection:
