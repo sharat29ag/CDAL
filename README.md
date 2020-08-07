@@ -26,7 +26,16 @@ By default, logs are stored in ```<root_dir>/log``` with this structure:
 ```bash
 <root_dir>/experiments/logs
 ```
-Fo CDAL selection:
+Sample features in features folder for PASCAL-VOC.
+
+For weighted features:
+```bash
+python preprocess.py
+```
+Change the path to raw features in the preprocess.py
+Creates a folder <root_dir>/features2 with weighted features.
+
+For CDAL selection:
 ```bash
 python main.py --number_of_picks <number of frames to select> --path_to_features <path to weighted features> --classes <number of classes in dataset> --gpu 1 --save-dir log/summe-split0 --start_idx 0
 ```
