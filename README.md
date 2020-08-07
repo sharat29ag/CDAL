@@ -13,8 +13,13 @@ Link to the paper:
 -PyTorch >0.4
 - CPU compatible but NVIDIA GPU + CUDA CuDNN is highly recommended.
 
+## Baseline Networks
+- [Semantic Segmentation](https://github.com/fyu/drn)
+- [Object Detection](https://github.com/amdegroot/ssd.pytorch)
+- [Image Classification](https://github.com/kuangliu/pytorch-cifar)
 
-**We have provided the code and data required to replicate all plots in paper [here](https://github.com/sinhasam/vaal/blob/master/plots/plots.ipynb).**
+## Acknowledgements
+This codebase is borrwed from [VSUMM](https://github.com/KaiyangZhou/pytorch-vsumm-reinforce)
 
 ## Contact
 If there are any questions or concerns feel free to send a message at sharata@iiitd.ac.in
