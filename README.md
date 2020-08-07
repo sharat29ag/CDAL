@@ -45,7 +45,7 @@ python main.py --number_of_picks <number of frames to select> --path_to_features
 ```
 List of selected samples will be stored in <root_dir>/selection/
 
-## Baseline Networks
+## Base Networks
 - [Semantic Segmentation](https://github.com/fyu/drn)
 - [Object Detection](https://github.com/amdegroot/ssd.pytorch)
 - [Image Classification](https://github.com/kuangliu/pytorch-cifar)
