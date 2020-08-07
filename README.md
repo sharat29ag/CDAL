@@ -10,8 +10,10 @@ Link to the paper:
 ### Prerequisites:
 - Linux
 - Python 3.5/3.6
--PyTorch >0.4
+- PyTorch >0.4
 - CPU compatible but NVIDIA GPU + CUDA CuDNN is highly recommended.
+
+
 
 ## Baseline Networks
 - [Semantic Segmentation](https://github.com/fyu/drn)
