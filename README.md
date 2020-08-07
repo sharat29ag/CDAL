@@ -1,7 +1,7 @@
 # CDAL in PyTorch
 PyTorch implementation of CDAL "Contextual Diversity for Active Learning" ECCV20.
 
-Sharat Agarwal*, Himanshu Arora*, Saket Anand, Chetan Arora. 
+Sharat Agarwal*, Himanshu Arora*, [Saket Anand](http://faculty.iiitd.ac.in/~anands/), [Chetan Arora](https://www.cse.iitd.ac.in/~chetan/) 
 
 *First two authors contributed equally*
 
