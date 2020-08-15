@@ -5,7 +5,7 @@ Sharat Agarwal, Himanshu Arora, Saket Anand, Chetan Arora
 
 *First two authors contributed equally*
 
-Link to the paper: 
+Link to the paper: CDAL(https://arxiv.org/pdf/2008.05723.pdf)
 
 ## Citation
 If using this code, parts of it, or developments from it, please cite our paper:
