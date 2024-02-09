@@ -51,7 +51,7 @@ class kCenterGreedy():
 		return new_batch
 
 def kl(ac,bc):
-	nc = 19
+	nc = 19 ## number of classes
 	kl_classes=[]
 	ac=np.reshape(ac,(nc,nc))
 	bc=np.reshape(bc,(nc,nc))
@@ -74,7 +74,7 @@ def parse_args():
 	parser = argparse.ArgumentParser(description='Run CDAL_CS selection')
 	parser.add_argument('--budget',type=int, help='budget size')
 	parser.add_argument('--file_path',help='path to save selected IDs name')
-	parser.add_argument('--feature',help='path to features')
+	parser.add_argument('--feature',help='path to features') ## path to processed feature of shape (nc,nc)
 	parser.add_argument('--labeled_ids',help='txt file of labeled IDs')
 	parser.add_argument('--nc',help='number of class')
 	args = parser.parse_args()
